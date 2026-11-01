@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>MJ APP STORE — Premium App Library</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#18263d;--text:#eef4ff;--muted:#9aabc4;--accent:#79e0c3;--line:#293952}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#24435a 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0b1220eF;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav,.wrap{max-width:1100px;margin:auto;padding:16px 20px}nav{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;font-size:21px;letter-spacing:-.9px}.brand span{color:var(--accent)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 15px;background:var(--accent);color:#09201b;font-weight:750}.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.hero{padding:48px 0 28px}.eyebrow{color:var(--accent);font-weight:750;letter-spacing:1.5px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(32px,6vw,54px);line-height:1.05;letter-spacing:-2px;margin:12px 0}.hero p{color:var(--muted);max-width:620px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.pill{background:#17273a;border:1px solid var(--line);padding:8px 12px;border-radius:99px;color:#c6d5e8;font-size:13px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 16px}.search{flex:1;min-width:210px;background:var(--panel);border:1px solid var(--line);color:var(--text);padding:12px 15px;border-radius:13px;outline:none}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.filter{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:8px 13px}.filter.active{background:var(--accent);color:#09201b;border-color:var(--accent);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}.card{background:linear-gradient(145deg,var(--panel),#101a2a);border:1px solid var(--line);border-radius:18px;padding:16px;min-width:0}.cardtop{display:flex;align-items:center;gap:12px}.icon{width:52px;height:52px;border-radius:15px;background:var(--panel2);display:grid;place-items:center;font-size:27px;overflow:hidden;flex:none}.icon img{width:100%;height:100%;object-fit:cover}.card h3{margin:0;font-size:16px}.meta{font-size:12px;color:var(--muted)}.desc{color:#bdcbe0;font-size:13px;min-height:40px;margin:13px 0}.cardfoot{display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{font-size:11px;color:var(--accent);background:#18352f;padding:5px 8px;border-radius:99px}.empty{color:var(--muted);padding:30px;text-align:center;border:1px dashed var(--line);border-radius:16px;grid-column:1/-1}
+section.admin{margin:38px 0;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}section.admin h2{margin-top:0}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:5px;color:var(--muted);font-size:12px}.field input,.field select,.field textarea{width:100%;background:#0b1423;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}.field.full{grid-column:1/-1}.hint{color:var(--muted);font-size:12px}footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;padding:25px}
+@media(max-width:600px){nav,.wrap{padding-left:15px;padding-right:15px}.hero{padding-top:34px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style></head>
+<body>
+<header><nav><div class="brand">✦ MJ <span>APP STORE</span></div><button class="ghost" onclick="document.querySelector('#admin').scrollIntoView({behavior:'smooth'})">＋ Add an app</button></nav></header>
+<main class="wrap">
+<div class="hero"><div class="eyebrow">✦ Premium digital collection</div><h1>Discover your next<br><span style="color:var(--accent)">favorite app.</span></h1><p>Welcome to MJ APP STORE — your stylish hub for apps, games and useful tools. Search your collection or add your own downloads.</p><div class="stats"><span class="pill" id="count">0 apps</span><span class="pill">⌕ Quick search</span><span class="pill">▦ Categories</span></div></div>
+<div class="tools"><input class="search" id="search" placeholder="Search apps, games and tools…" oninput="render()"></div>
+<div class="filters" id="filters"></div><div class="grid" id="grid"></div>
+<section class="admin" id="admin"><h2>＋ Add to your library</h2><p class="hint">Add an app you own or have permission to share. Use a direct download URL or select a file for this browser session.</p>
+<form id="appform"><div class="formgrid">
+<label class="field">App name<input required id="name" placeholder="e.g. My Utility App"></label>
+<label class="field">Category<select id="category"><option>Apps</option><option>Games</option><option>AI Tools</option><option>Utilities</option><option>Files</option><option>Other</option></select></label>
+<label class="field">Version<input id="version" placeholder="e.g. 1.0.0"></label>
+<label class="field">Icon (emoji)<input id="emoji" maxlength="4" placeholder="📱"></label>
+<label class="field full">Short description<input id="desc" placeholder="What does this app do?"></label>
+<label class="field full">Download URL<input id="url" type="url" placeholder="https://example.com/app.apk"></label>
+<label class="field full">Or choose an APK/file<input id="file" type="file" accept=".apk,.xapk,.apks,.zip,.pdf,.exe"></label>
+</div><p class="hint" id="filehint">Files selected here are only kept in this browser's temporary session. For permanent public downloads, upload the file to hosting/storage and paste its link.</p>
+<div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><button type="submit">Save app</button><button type="button" class="ghost" onclick="exportData()">Export library</button><button type="button" class="ghost" onclick="document.querySelector('#importfile').click()">Import library</button><input id="importfile" type="file" accept=".json" hidden onchange="importData(event)"></div></form></section>
+</main><footer>✦ MJ APP STORE · Your premium app collection · Share only files you have rights to distribute.</footer>
+<script>
+const starter=[];
+let apps=JSON.parse(localStorage.getItem('appnest-items')||'null')||starter;
+let active='All', sessionFiles={};
+const cats=['All','Apps','Games','AI Tools','Utilities','Files','Other'];
+function save(){localStorage.setItem('appnest-items',JSON.stringify(apps))}
+function renderFilters(){document.querySelector('#filters').innerHTML=cats.map(c=>`<button class="filter ${active===c?'active':''}" onclick="active='${c}';render()">${c}</button>`).join('')}
+function render(){renderFilters();let q=document.querySelector('#search').value.toLowerCase();let shown=apps.filter(a=>(active==='All'||a.category===active)&&[a.name,a.desc,a.category].join(' ').toLowerCase().includes(q));document.querySelector('#count').textContent=apps.length+' app'+(apps.length===1?'':'s');document.querySelector('#grid').innerHTML=shown.length?shown.map((a,i)=>`<article class="card"><div class="cardtop"><div class="icon">${a.icon||'📱'}</div><div style="min-width:0"><h3>${esc(a.name)}</h3><div class="meta">${esc(a.category)} · ${esc(a.version||'Version not set')}</div></div></div><p class="desc">${esc(a.desc||'No description added yet.')}</p><div class="cardfoot"><span class="tag">${esc(a.category)}</span>${a.url?`<a href="${esc(a.url)}" target="_blank" rel="noopener"><button>Download ↗</button></a>`:a.fileKey&&sessionFiles[a.fileKey]?`<a href="${sessionFiles[a.fileKey]}" download="${esc(a.fileName)}"><button>Download ↓</button></a>`:`<span class="meta">No download link</span>`}</div></article>`).join(''):'<div class="empty">No apps found. Add your first app below.</div>'}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelector('#appform').addEventListener('submit',e=>{e.preventDefault();let f=document.querySelector('#file').files[0],key='f'+Date.now();if(f)sessionFiles[key]=URL.createObjectURL(f);apps.unshift({name:name.value.trim(),category:category.value,version:version.value.trim(),icon:emoji.value.trim()||'📱',desc:desc.value.trim(),url:url.value.trim(),fileKey:f?key:'',fileName:f?f.name:''});save();e.target.reset();render();alert('App saved in this browser.');});
+function exportData(){let blob=new Blob([JSON.stringify(apps,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='appnest-library.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);if(!Array.isArray(data))throw 0;apps=data;save();render();alert('Library imported.')}catch{alert('Invalid library file.')}};r.readAsText(f)}
+render();
+</script></body></html>
